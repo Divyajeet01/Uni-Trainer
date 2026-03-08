@@ -5,7 +5,8 @@
 ## ✨ Features
 
 * **Multi-Task Support:** Train models for Image Classification, Object Detection, Segmentation, and Tabular Regression.
-* **Extensive Model Zoo:** * *Classification:* YOLO-Cls, ResNet (18 to 152)
+* **Extensive Model Zoo:**
+  *Classification:* YOLO-Cls, ResNet (18 to 152)
   * *Detection:* YOLO-OBB, RT-DETR
   * *Segmentation:* YOLO-Seg, SAM / SAM 2
   * *Regression:* XGBoost, LightGBM, Random Forest, Neural Networks
