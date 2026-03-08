@@ -21,3 +21,6 @@
    ```bash
    git clone [https://github.com/Divyajeet01/Uni-trainer.git](https://github.com/Divyajeet01/Uni-Trainer.git)
    cd Uni-Trainer
+
+
+<img width="1919" height="1079" alt="image" src="https://github.com/user-attachments/assets/8c6e0f80-2c10-464a-b439-0f064253dc5b" />
