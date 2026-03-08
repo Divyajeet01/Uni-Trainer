@@ -1,0 +1,9 @@
+PyQt5
+pandas
+psutil
+torch
+torchvision
+ultralytics  
+xgboost
+lightgbm
+scikit-learn 
