@@ -19,5 +19,5 @@
 
 1. **Clone the repository:**
    ```bash
-   git clone [https://github.com/Divyajeet01/uni-trainer.git](https://github.com/YOUR_USERNAME/uni-trainer.git)
-   cd uni-trainer
+   git clone [https://github.com/Divyajeet01/Uni-trainer.git](https://github.com/Divyajeet01/Uni-Trainer.git)
+   cd Uni-Trainer
