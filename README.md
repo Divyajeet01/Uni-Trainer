@@ -3,7 +3,7 @@
 **Uni Trainer** is a comprehensive, responsive AI Training Desktop Application built with PyQt5. It provides a seamless drag-and-drop graphical interface for training state-of-the-art Computer Vision and Machine Learning models without writing a single line of code.
 
 ## ✨ Features
-
+* **No-Code GUI:** Full model training without manual programming.
 * **Multi-Task Support:** Train models for Image Classification, Object Detection, Segmentation, and Tabular Regression.
 * **Extensive Model Zoo:**
   *Classification:* YOLO-Cls, ResNet (18 to 152)
