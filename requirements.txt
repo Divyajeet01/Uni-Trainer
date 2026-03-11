@@ -1,9 +1,13 @@
-PyQt5
-pandas
-psutil
-torch
-torchvision
-ultralytics  
-xgboost
-lightgbm
-scikit-learn 
+PyQt5 ==5.15.4
+PyQt5_sip ==12.17.1
+PyQtWebEngine ==5.15.4
+scipy ==1.16.3
+pandas ==2.3.3
+numpy ==1.26.4
+psutil ==7.1.3
+torch ==2.5.1+cu121
+torchvision ==0.20.1+cu121
+ultralytics ==8.3.225
+xgboost ==3.2.0
+lightgbm ==4.6.0
+scikit-learn ==1.7.2
