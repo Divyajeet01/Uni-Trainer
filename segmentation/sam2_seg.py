@@ -4,16 +4,18 @@ from pathlib import Path
 
 
 class SAM2Segmentor:
-    """SAM2 (Segment Anything Model 2) for Instance Segmentation training and inference."""
+    """SAM2 (Segment Anything Model 2) for Instance Segmentation training and inference.
+
+    Only SAM2 models are supported (sam2_t.pt, sam2_s.pt, sam2_b.pt, sam2_l.pt).
+    Classic SAM models (sam_b.pt, sam_l.pt) are NOT supported for training/inference.
+    """
 
     def __init__(self, model_name="sam2_b.pt"):
         """
         Initialize the SAM2 Segmentation model.
 
         Args:
-            model_name: Pre-trained SAM model to use. Options:
-                - 'sam_b.pt' (SAM base)
-                - 'sam_l.pt' (SAM large)
+            model_name: Pre-trained SAM2 model to use. Options:
                 - 'sam2_t.pt' (SAM2 tiny - fastest)
                 - 'sam2_s.pt' (SAM2 small)
                 - 'sam2_b.pt' (SAM2 base - balanced)
@@ -23,11 +25,31 @@ class SAM2Segmentor:
         print(f"Using device: {self.device}")
         self.model_name = model_name
 
-        # Load SAM model (Ultralytics auto-downloads if not found)
+        # Only allow SAM2 models
+        if model_name not in ["sam2_t.pt", "sam2_s.pt", "sam2_b.pt", "sam2_l.pt"]:
+            raise NotImplementedError(
+                f"Model '{model_name}' is not supported. Only SAM2 models (sam2_t.pt, sam2_s.pt, sam2_b.pt, sam2_l.pt) are supported."
+            )
         try:
+            import os
+            abs_path = os.path.abspath(model_name)
+            print(f"[SAM2Segmentor] Looking for model at: {abs_path}")
+            if not os.path.exists(model_name):
+                print(f"Model file {model_name} not found. Downloading from Ultralytics...")
+                from ultralytics.hub.utils import attempt_download_asset
+                attempt_download_asset(model_name)
+            else:
+                print(f"Model file found: {abs_path} (size: {os.path.getsize(model_name)} bytes)")
             self.model = SAM(model_name)
+            # Patch for missing 'model' key in overrides (Ultralytics bug workaround)
+            if not hasattr(self.model, 'overrides'):
+                self.model.overrides = {}
+            if 'model' not in self.model.overrides:
+                self.model.overrides['model'] = model_name
         except Exception as e:
-            print(f"Error loading SAM model: {e}")
+            print(f"Error loading SAM2 model from {abs_path}: {e}")
+            if os.path.exists(model_name):
+                print(f"File exists but may be corrupted or incompatible. Try re-downloading the model.")
             raise
 
     def _get_unique_run_name(self, project, base_name):
@@ -219,6 +241,12 @@ class SAM2Segmentor:
             model_path: Path to the trained model .pt file
         """
         self.model = SAM(model_path)
+        # Patch for missing 'model' key in overrides (Ultralytics bug workaround)
+        if not hasattr(self.model, 'overrides'):
+            self.model.overrides = {}
+        if 'model' not in self.model.overrides:
+            self.model.overrides['model'] = model_path
+
         print(f"Loaded model from: {model_path}")
 
     def validate(self, data_path):
@@ -346,10 +374,8 @@ def predict_with_model(model_path, image_path, conf=0.25):
 
 
 def get_available_models():
-    """Returns list of available SAM segmentation models."""
+    """Returns list of available SAM2 segmentation models."""
     return [
-        "sam_b.pt",     # SAM base
-        "sam_l.pt",     # SAM large
         "sam2_t.pt",    # SAM2 tiny
         "sam2_s.pt",    # SAM2 small
         "sam2_b.pt",    # SAM2 base
