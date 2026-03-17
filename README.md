@@ -8,7 +8,7 @@
 * **Extensive Model Zoo:**
   *Classification:* YOLO-Cls, ResNet (18 to 152)
   * *Detection:* YOLO-OBB, RT-DETR
-  * *Segmentation:* YOLO-Seg, SAM / SAM 2
+  * *Segmentation:* YOLO-Seg
   * *Regression:* XGBoost, LightGBM, Random Forest, Neural Networks
 * **Hardware Auto-Detection:** Automatically detects your CPU, RAM, and GPU (`torch.cuda`) to monitor resource usage during training.
 * **Smart Data Handling:** Drag-and-drop interface for folders and CSVs. Auto-splits image datasets and auto-generates `data.yaml` files.
