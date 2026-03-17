@@ -23,9 +23,6 @@ from segmentation.yolo_seg import (
     validate_dataset_structure as seg_validate_dataset_structure,
     prepare_data_yaml as seg_prepare_data_yaml,
 )
-from segmentation.sam2_seg import (
-    train_with_user_data as sam2_train_with_user_data,
-)
 from ml_regression.xgboost_reg import (
     train_with_user_data as xgboost_train_with_user_data,
 )
@@ -170,17 +167,6 @@ class TrainingWorker(QThread):
                     )
                 else:
                     model_path, results = yolo_det_train_with_user_data(
-                        data_path=self.data_path,
-                        config=self.config
-                    )
-            elif self.task == "Segmentation":
-                if self.framework == "SAM":
-                    model_path, results = sam2_train_with_user_data(
-                        data_path=self.data_path,
-                        config=self.config
-                    )
-                else:
-                    model_path, results = yolo_seg_train_with_user_data(
                         data_path=self.data_path,
                         config=self.config
                     )
@@ -486,21 +472,6 @@ class MainScreen(ResponsiveWidget):
                 "batch": 16,
             }
         },
-        "SAM": {
-            "versions": {
-                "SAM-b (base)": "sam_b.pt",
-                "SAM-l (large)": "sam_l.pt",
-                "SAM 2 (tiny)": "sam2_t.pt",
-                "SAM 2 (small)": "sam2_s.pt",
-                "SAM 2 (base)": "sam2_b.pt",
-            },
-            "default_config": {
-                "epochs": 50,
-                "imgsz": 1024,
-                "batch": 4,
-            }
-        }
-    },
     "Regression": {
         "XGBoost": {
             "versions": {
